@@ -12,18 +12,6 @@ FILE_FORMATTER = logging.Formatter(
 )
 CONSOLE_FORMATTER = logging.Formatter(FMT)
 
-CREATE_LOGFILE = True
-
-# If the operating system is Windows, have a different path for the log, else it is linux
-if os.name == "nt":
-    LOG_FILE = f"{os.path.realpath(os.path.dirname(__file__))}/logs/scriptoutput.log"
-else:
-    LOG_FILE = f"{os.path.realpath(os.path.dirname(__file__))}/logs/scriptoutput.log"
-
-# This is for coloredlogs, requires a dictionary
-# https://coloredlogs.readthedocs.io/en/latest/api.html#coloredlogs.DEFAULT_FIELD_STYLES
-
-# You can also change directories into the site-packages and then run the following command to see what output looks like for your terminal
 # humanfriendly --demo
 CUSTOM_FIELD_STYLES = {
     "asctime": {"color": "green"},
@@ -33,19 +21,6 @@ CUSTOM_FIELD_STYLES = {
     "programname": {"color": "cyan"},
     "username": {"color": "yellow"},
 }
-
-# We don't want to create a logfile
-# if CREATE_LOGFILE != False:
-#    if os.name == 'nt':
-#        try:
-#            os.makedirs("")
-#        except:
-#            pass
-#    else:
-#        try:
-#            os.makedirs("/var/log/")
-#        except:
-#            pass
 
 
 def get_console_handler(debug):
@@ -66,7 +41,7 @@ def get_console_handler(debug):
     return console_handler
 
 
-def get_file_handler(debug, log_file_name=LOG_FILE):
+def get_file_handler(debug=False, log_file_name="log.txt"):
     """
     We're going to print out the debug output to the log file.
     """
@@ -74,13 +49,19 @@ def get_file_handler(debug, log_file_name=LOG_FILE):
     file_handler = TimedRotatingFileHandler(log_file_name, when="midnight")
 
     # We want to print out debug information to this file.
-    file_handler.setLevel(logging.DEBUG)
+    if debug:
+        file_handler.setLevel(logging.DEBUG)
+    else:
+        file_handler.setLevel(logging.INFO)
     file_handler.setFormatter(FILE_FORMATTER)
     return file_handler
 
 
 def get_logger(
-    logger_name="Template Repository Logger", log_file_name=LOG_FILE, debug=False
+    logger_name="Template Repository Logger",
+    log_file_name="log.txt",
+    debug=False,
+    create_log_file=True,
 ):
     """Get the logger, for the current namespace.
 
@@ -98,7 +79,7 @@ def get_logger(
     # If the logger already has the two handlers we've set, no need to add more.
     if len(logger.handlers) < 2:
         logger.addHandler(get_console_handler(debug))
-        if CREATE_LOGFILE != False:
+        if create_log_file != False:
             logger.addHandler(get_file_handler(debug, log_file_name=log_file_name))
         # If debugging is not true, we don't want to output DEBUG information to the console.
         if debug != False:

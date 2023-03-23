@@ -6,7 +6,6 @@ import log
 from cli_color import Color
 
 if __name__ == "__main__":
-
     try:
         parser = argparse.ArgumentParser(
             description="This is the description for the main parser!"
