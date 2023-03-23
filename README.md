@@ -1,3 +1,3 @@
-# python-repo-template
+# Pytrilium
 
-This is the template repository that I'm going to use for my Python projects in the future.
+This is just a place holder while I build out this API for Trilium
