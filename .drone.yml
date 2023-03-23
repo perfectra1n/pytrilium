@@ -1,0 +1,54 @@
+kind: pipeline
+name: Format Python code, etc.
+
+trigger:
+  branch:
+  - master
+
+steps:
+- name: Checkout dev branch instead of default branch
+  image: python
+  commands:
+    - git checkout master
+
+- name: Print the git status
+  image: python
+  commands:
+    - git status
+    - echo "Current commit is $(git log --pretty=format:'%h' -n 1)"
+
+- name: Format code if required
+  image: python
+  commands:
+    - python -m pip install black
+    - black .
+    - git diff --quiet && git diff --staged --quiet || git commit -am '[DRONE] [CI SKIP] Formatted code'
+    - git push --set-upstream origin master
+
+---
+kind: pipeline
+name: Update main bastion tools when pushing to release
+
+trigger:
+  branch:
+  - dev
+
+steps:
+- name: Checkout dev branch instead of default branch
+  image: python
+  commands:
+    - git checkout dev
+
+- name: Print the git status
+  image: python
+  commands:
+    - git status
+    - echo "Current commit is $(git log --pretty=format:'%h' -n 1)"
+
+- name: Format code if required
+  image: python
+  commands:
+    - python -m pip install black
+    - black .
+    - git diff --quiet && git diff --staged --quiet || git commit -am '[DRONE] [CI SKIP] Formatted code'
+    - git push --set-upstream origin master
