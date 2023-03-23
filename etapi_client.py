@@ -23,6 +23,7 @@ class PyTriliumClient:
 
         self.valid_response_codes = [200, 201, 202, 204]
         self.make_requests_session()
+        self.attempt_basic_call()
 
     def make_requests_session(self) -> None:
         self.session = requests.Session()
@@ -43,8 +44,8 @@ class PyTriliumClient:
         request_url = self.url + api_endpoint
         req_resp = self.session.request(method, request_url, data=data, params=params)
         if req_resp.status_code not in self.valid_response_codes:
-            raise ValueError(
-                f"Invalid response code: {str(req_resp.status_code)}, response text: {req_resp.text}"
+            self.logger.warning(
+                f"Possible invalid response code: {str(req_resp.status_code)}, response text: {req_resp.text}"
             )
         return req_resp
 
@@ -60,6 +61,11 @@ class PyTriliumClient:
 
     def attempt_basic_call(self) -> None:
         resp = self.make_request("/app-info")
+        if resp.status_code not in self.valid_response_codes:
+            raise ValueError(
+                f"Invalid response code: {str(resp.status_code)}, response text: {resp.text}. Response code should be one of {self.valid_response_codes}. Please check your Trilium, URL, and token."
+            )
+
         self.logger.info(resp.json())
         pass
 
