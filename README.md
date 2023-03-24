@@ -15,7 +15,7 @@ pip install pytrilium
 This will just print out the contents of a note, as one large string. Trilium's API returns it in the HTML format.
 
 ```python
-from PyTrilium.PyTrilium import PyTrilium
+from pytrilium.PyTrilium import PyTrilium
 
 pytrilium_client = PyTrilium("https://trilium.example.com", "TTDaTeG3sadffy2_eOtgqvZoI6xHvga/6vhz61ezke1RpoX47vPI93zs5qs=")
 
@@ -25,7 +25,7 @@ print(pytrilium_client.get_note_content_by_id("MLDQ3EGWsU8e"))
 Export a note to a file
 
 ```python
-from PyTrilium.PyTrilium import PyTrilium
+from pytrilium.PyTrilium import PyTrilium
 
 test_client = PyTrilium("https://trilium.example.com", "TTDaTeG3sadffy2_eOtgqvZoI6xHvga/6vhz61ezke1RpoX47vPI93zs5qs=")
 
@@ -41,7 +41,7 @@ If I'm braindead or this just doesn't do what you want it to, you can still use 
 To print out a Note's content without using other helpers -
 
 ```python
-from PyTrilium.PyTrilium import PyTrilium
+from pytrilium.PyTrilium import PyTrilium
 
 pytrilium_client = PyTrilium("https://trilium.example.com", "TTDaTeG3sadffy2_eOtgqvZoI6xHvga/6vhz61ezke1RpoX47vPI93zs5qs=")
 
