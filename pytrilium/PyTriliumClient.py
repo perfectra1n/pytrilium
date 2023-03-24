@@ -6,7 +6,7 @@ from . import log
 
 
 class PyTriliumClient:
-    def __init__(self, url: str, token: str, debug: bool=False) -> None:
+    def __init__(self, url: str, token: str, debug: bool = False) -> None:
         """Initializes the PyTriliumClient class.
 
         Parameters
@@ -41,12 +41,9 @@ class PyTriliumClient:
         # The valid response codes that can come from Triliu
         # everything else will be logged as a console warning
         self.valid_response_codes = [200, 201, 202, 204]
-        
-        
 
     def make_requests_session(self) -> None:
-        """Creates a requests session with the token and user agent header.
-        """
+        """Creates a requests session with the token and user agent header."""
         self.session = requests.Session()
         self.session.headers.update({"User-Agent": "PyTriliumClient/0.0.1"})
         self.session.headers.update({"Authorization": self.token})
@@ -112,8 +109,7 @@ class PyTriliumClient:
         return True
 
     def attempt_basic_call(self) -> None:
-        """Attempts a basic call to the Trilium API to make sure that the URL and token are valid.
-        """
+        """Attempts a basic call to the Trilium API to make sure that the URL and token are valid."""
         resp = self.make_request("/app-info")
         if resp.status_code not in self.valid_response_codes:
             raise ValueError(

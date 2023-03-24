@@ -21,4 +21,3 @@ class PyTrilium(PyTriliumNoteClient, PyTriliumBranchClient, PyTriliumAttributeCl
         # Set up the requests session, and make a generic call to Trilium to validate that it works
         self.make_requests_session()
         self.attempt_basic_call()
-       

@@ -6,9 +6,7 @@ from logging.handlers import TimedRotatingFileHandler
 FMT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 DATE_FMT = "%m-%d-%Y %H:%M"
 
-FILE_FORMATTER = logging.Formatter(
-    "%(asctime)s - %(funcName)s:%(lineno)d - %(name)s - %(levelname)s - %(message)s"
-)
+FILE_FORMATTER = logging.Formatter("%(asctime)s - %(funcName)s:%(lineno)d - %(name)s - %(levelname)s - %(message)s")
 CONSOLE_FORMATTER = logging.Formatter(FMT)
 
 # humanfriendly --demo
