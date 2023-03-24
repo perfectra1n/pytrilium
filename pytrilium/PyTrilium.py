@@ -1,6 +1,6 @@
-from PyTriliumNoteClient import PyTriliumNoteClient
-from PyTriliumBranchClient import PyTriliumBranchClient
-from PyTriliumAttributeClient import PyTriliumAttributeClient
+from .PyTriliumNoteClient import PyTriliumNoteClient
+from .PyTriliumBranchClient import PyTriliumBranchClient
+from .PyTriliumAttributeClient import PyTriliumAttributeClient
 
 
 class PyTrilium(PyTriliumNoteClient, PyTriliumBranchClient, PyTriliumAttributeClient):

@@ -2,7 +2,7 @@ import requests
 from requests.adapters import HTTPAdapter, Retry
 
 # Local import
-import log
+from . import log
 
 
 class PyTriliumClient:
@@ -74,7 +74,7 @@ class PyTriliumClient:
 
         Returns
         -------
-        requests.request
+        requests.Response
             The response from the Trilium API.
         """
         # We use our own session that holds the token, so we shouldn't

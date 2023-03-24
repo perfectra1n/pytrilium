@@ -1,6 +1,5 @@
 import logging
 import sys
-import os
 import coloredlogs
 from logging.handlers import TimedRotatingFileHandler
 

@@ -156,3 +156,4 @@ cython_debug/
 scriptoutput.log*
 
 custom_testing.py
+etapi.openapi.yaml
