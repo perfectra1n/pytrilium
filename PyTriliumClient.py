@@ -6,7 +6,24 @@ import log
 
 
 class PyTriliumClient:
-    def __init__(self, url, token, debug=False) -> None:
+    def __init__(self, url: str, token: str, debug: bool=False) -> None:
+        """Initializes the PyTriliumClient class.
+
+        Parameters
+        ----------
+        url : str
+            The URL of the Trilium instance. This should include the protocol (http:// or https://) and the port if it is not the protocol's respective port (443 for https, 80 for http). e.g. `https://trilium.example.com:8080`
+        token : str
+            The token for the Trilium instance. This can be found in the Trilium settings.
+        debug : bool, optional
+            If you would like to enable debugging, set this to True, by default False
+
+        Raises
+        ------
+        ValueError
+            If the URL is invalid, this will raise a ValueError.
+        """
+
         self.token = token
         if not self.clean_url(url):
             raise ValueError(
@@ -21,11 +38,15 @@ class PyTriliumClient:
             create_log_file=True,
         )
 
+        # The valid response codes that can come from Triliu
+        # everything else will be logged as a console warning
         self.valid_response_codes = [200, 201, 202, 204]
-        self.make_requests_session()
-        self.attempt_basic_call()
+        
+        
 
     def make_requests_session(self) -> None:
+        """Creates a requests session with the token and user agent header.
+        """
         self.session = requests.Session()
         self.session.headers.update({"User-Agent": "PyTriliumClient/0.0.1"})
         self.session.headers.update({"Authorization": self.token})
@@ -37,7 +58,25 @@ class PyTriliumClient:
         self.session.mount("https://", HTTPAdapter(max_retries=retries))
         self.session.mount("http://", HTTPAdapter(max_retries=retries))
 
-    def make_request(self, api_endpoint, method="GET", data="", params={}) -> None:
+    def make_request(self, api_endpoint: str, method="GET", data="", params={}) -> requests.request:
+        """Standard request method for making requests to the Trilium API.
+
+        Parameters
+        ----------
+        api_endpoint : str
+            The API endpoint to make the request to. This should not include the URL or the /etapi prefix.
+        method : str, optional
+            The HTTP method to use, by default "GET"
+        data : str, optional
+            The body data to send with the request, by default ""
+        params : dict, optional
+            The parameters to include in the API call, by default {}
+
+        Returns
+        -------
+        requests.request
+            The response from the Trilium API.
+        """
         # We use our own session that holds the token, so we shouldn't
         # need to enforce it here.
 
@@ -49,7 +88,20 @@ class PyTriliumClient:
             )
         return req_resp
 
-    def clean_url(self, url) -> None:
+    def clean_url(self, url: str) -> bool:
+        """Cleans the URL to make sure it is valid.
+
+
+        Parameters
+        ----------
+        url : str
+            The URL to clean.
+
+        Returns
+        -------
+        bool
+            If the URL is valid, this will return True. If the URL is invalid, this will return False.
+        """
         if "/etapi" not in url:
             url = url + "/etapi"
         if "http" not in url and "https" not in url:
@@ -60,6 +112,8 @@ class PyTriliumClient:
         return True
 
     def attempt_basic_call(self) -> None:
+        """Attempts a basic call to the Trilium API to make sure that the URL and token are valid.
+        """
         resp = self.make_request("/app-info")
         if resp.status_code not in self.valid_response_codes:
             raise ValueError(
@@ -67,10 +121,3 @@ class PyTriliumClient:
             )
 
         self.logger.info(resp.json())
-        pass
-
-    def get_config(self) -> None:
-        pass
-
-    def get_notes(self) -> None:
-        pass
