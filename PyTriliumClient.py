@@ -58,7 +58,7 @@ class PyTriliumClient:
         self.session.mount("https://", HTTPAdapter(max_retries=retries))
         self.session.mount("http://", HTTPAdapter(max_retries=retries))
 
-    def make_request(self, api_endpoint: str, method="GET", data="", params={}) -> requests.request:
+    def make_request(self, api_endpoint: str, method="GET", data="", params={}) -> requests.Response:
         """Standard request method for making requests to the Trilium API.
 
         Parameters
