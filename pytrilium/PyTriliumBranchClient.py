@@ -27,7 +27,7 @@ class PyTriliumBranchClient(PyTriliumClient):
         Parameters
         ----------
         data : str
-            The data to send to the Trilium API. This should be in the format of a JSON string.
+            The data to send to the Trilium API.This should be in the format of a string.
 
         Returns
         -------
@@ -44,7 +44,7 @@ class PyTriliumBranchClient(PyTriliumClient):
         branch_id : str
             Trilium's ID for the Branch, this can be seen by clicking the 'i' on the branch, near the top.
         data : str
-            The data to send to the Trilium API. This should be in the format of a JSON string.
+            The data to send to the Trilium API.This should be in the format of a string.
 
         Returns
         -------

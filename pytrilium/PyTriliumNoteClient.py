@@ -44,7 +44,7 @@ class PyTriliumNoteClient(PyTriliumClient):
         note_id : str
             Trilium's ID for the Note, this can be seen by clicking the 'i' on the note, near the top.
         data : str
-            The data to send to the Trilium API. This should be in the format of a JSON string.
+            The data to send to the Trilium API.This should be in the format of a string.
 
         Returns
         -------
@@ -61,7 +61,7 @@ class PyTriliumNoteClient(PyTriliumClient):
         note_id : str
             Trilium's ID for the Note, this can be seen by clicking the 'i' on the note, near the top.
         data : str
-            The data to send to the Trilium API. This should be in the format of a JSON string.
+            The data to send to the Trilium API.This should be in the format of a string.
 
         Returns
         -------
@@ -131,7 +131,7 @@ class PyTriliumNoteClient(PyTriliumClient):
         note_id : str
             Trilium's ID for the Note, this can be seen by clicking the 'i' on the note, near the top.
         data : str
-            The data to send to the Trilium API. This should be in the format of a JSON string.
+            The data to send to the Trilium API.This should be in the format of a string.
         format : str, optional
             The format of which the data being provided is in. By default "html". Can also be "markdown".
 
@@ -143,3 +143,33 @@ class PyTriliumNoteClient(PyTriliumClient):
 
         params = {"format": format}
         return self.make_request(f"/notes/{note_id}/note-revision", method="POST", data=data, params=params)
+
+    def refresh_note_ordering(self, parent_note_id: str) -> requests.Response:
+        """Given the Note's ID, refresh the node ordering of the Note.
+
+        Parameters
+        ----------
+        parent_note_id : str
+            Trilium's ID for the parent Note, this can be seen by clicking the 'i' on the parent's note, near the top.
+
+        Returns
+        -------
+        requests.Response
+            The response from the Trilium API.
+        """
+        return self.make_request(f"/refresh-note-ordering/{parent_note_id}", method="POST")
+    
+    def create_note(self, data: str) -> requests.Response:
+        """Create a new Note.
+
+        Parameters
+        ----------
+        data : str
+            The data to send to the Trilium API.This should be in the format of a string.
+
+        Returns
+        -------
+        requests.Response
+            The response from the Trilium API.
+        """
+        return self.make_request("/create-note", method="POST", data=data)
