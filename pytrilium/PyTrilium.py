@@ -5,20 +5,45 @@ from .PyTriliumCalendarClient import PyTriliumCalendarClient
 
 
 class PyTrilium(PyTriliumNoteClient, PyTriliumBranchClient, PyTriliumAttributeClient, PyTriliumCalendarClient):
-    def __init__(self, url, token, debug=False) -> None:
-        """Initializes the PyTrilium class.
+    def __init__(self, url, token=None, password=None, debug=False) -> None:
+        """Initializes the PyTrilium class. You need to either provide an ETAPI token OR a password (which will then be used to generate an ETAPI token).
 
         Parameters
         ----------
         url : str
             The URL of the Trilium instance. This should include the protocol (http:// or https://) and the port if it is not the protocol's respective port (443 for https, 80 for http). e.g. `https://trilium.example.com:8080`
-        token : str
+        token : str, optional
             The token for the Trilium instance. This can be found in the Trilium settings.
         debug : bool, optional
             If you would like to enable debugging, set this to True, by default False
+        password : str, optional
+            The password for the Trilium instance. This can be found in the Trilium settings. This is only required if you are using Trilium's built-in authentication, by default None
         """
         super().__init__(url, token, debug)
 
-        # Set up the requests session, and make a generic call to Trilium to validate that it works
+        # Set up the requests session, the validate that either a password or a token was provided
+        # If not, return an error
         self.make_requests_session()
+        if not token and not password:
+            raise ValueError("You must provide either a token or a password.")
+        if password:
+            self.token = self.auth_login(password)
+        if token:
+            self.token = token
+        self.set_session_auth(self.token)
+
+        # Attempt a basic call to make sure that the token is valid
         self.attempt_basic_call()
+
+    def auth_login(self, password:str) -> str:
+        """Logs in to Trilium using the token provided to the class. This is called automatically when the class is initialized, and should not be called manually."""
+
+        # Returns {"authToken": "33xHpBRHetAN_fh3g0B7MQaaaaj1871fbXLbbK4JAT06GGmZOSwet56M="}
+        data = {"password": password}
+
+        resp = self.make_request("/auth/login", data=data, method="POST")
+        return resp.json()["authToken"]
+    
+    def auth_logout(self):
+        """Logs out of Trilium using the token provided to the class. This should not be called manually."""
+        self.make_request("/auth/logout", method="POST")

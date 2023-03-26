@@ -46,7 +46,6 @@ class PyTriliumClient:
         """Creates a requests session with the token and user agent header."""
         self.session = requests.Session()
         self.session.headers.update({"User-Agent": "PyTriliumClient/0.0.1"})
-        self.session.headers.update({"Authorization": self.token})
 
         # Set up retry logic
         retries = Retry(total=5, backoff_factor=1, status_forcelist=[502, 503, 504])
@@ -54,6 +53,16 @@ class PyTriliumClient:
         # Have it work for both http and https
         self.session.mount("https://", HTTPAdapter(max_retries=retries))
         self.session.mount("http://", HTTPAdapter(max_retries=retries))
+
+    def set_session_auth(self, token: str) -> None:
+        """Sets the authorization token for the session.
+
+        Parameters
+        ----------
+        token : str
+            The token to set for the session.
+        """
+        self.session.headers.update({"Authorization": token})
 
     def make_request(self, api_endpoint: str, method="GET", data="", params={}) -> requests.Response:
         """Standard request method for making requests to the Trilium API.
