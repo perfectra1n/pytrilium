@@ -1,9 +1,10 @@
 from .PyTriliumNoteClient import PyTriliumNoteClient
 from .PyTriliumBranchClient import PyTriliumBranchClient
 from .PyTriliumAttributeClient import PyTriliumAttributeClient
+from .PyTriliumCalendarClient import PyTriliumCalendarClient
 
 
-class PyTrilium(PyTriliumNoteClient, PyTriliumBranchClient, PyTriliumAttributeClient):
+class PyTrilium(PyTriliumNoteClient, PyTriliumBranchClient, PyTriliumAttributeClient, PyTriliumCalendarClient):
     def __init__(self, url, token, debug=False) -> None:
         """Initializes the PyTrilium class.
 

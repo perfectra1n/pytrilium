@@ -1,6 +1,7 @@
 import requests
 from .PyTriliumClient import PyTriliumClient
 
+
 class PyTriliumAttributeClient(PyTriliumClient):
     def __init__(self, url, token, debug=False) -> None:
         super().__init__(url, token, debug)
@@ -19,7 +20,7 @@ class PyTriliumAttributeClient(PyTriliumClient):
             The response from the Trilium API.
         """
         return self.make_request(f"/attributes/{attribute_id}").json()
-    
+
     def post_attribute(self, data: str) -> requests.Response:
         """This will create a new Attribute.
 

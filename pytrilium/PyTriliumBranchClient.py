@@ -20,7 +20,7 @@ class PyTriliumBranchClient(PyTriliumClient):
             The response from the Trilium API.
         """
         return self.make_request(f"/branches/{branch_id}").json()
-    
+
     def post_branch(self, data: str) -> requests.Response:
         """This will create a new Branch.
 
@@ -35,7 +35,7 @@ class PyTriliumBranchClient(PyTriliumClient):
             The response from the Trilium API.
         """
         return self.make_request("/branches", method="POST", data=data)
-    
+
     def patch_branch_by_id(self, branch_id: str, data: str) -> requests.Response:
         """Given the Branch's ID, this will update the Branch's information.
 
@@ -52,7 +52,7 @@ class PyTriliumBranchClient(PyTriliumClient):
             The response from the Trilium API.
         """
         return self.make_request(f"/branches/{branch_id}", method="PATCH", data=data)
-    
+
     def delete_branch_by_id(self, branch_id: str) -> requests.Response:
         """Given the Branch's ID, this will delete the Branch.
 
@@ -67,4 +67,3 @@ class PyTriliumBranchClient(PyTriliumClient):
             The response from the Trilium API.
         """
         return self.make_request(f"/branches/{branch_id}", method="DELETE")
-    

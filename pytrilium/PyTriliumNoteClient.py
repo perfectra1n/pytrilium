@@ -35,7 +35,7 @@ class PyTriliumNoteClient(PyTriliumClient):
             The content of the note, most likely in HTML format.
         """
         return self.make_request(f"/notes/{note_id}/content").text
-    
+
     def put_note_content_by_id(self, note_id: str, data: str) -> requests.Response:
         """Given the Note's ID, this will update the Note's content.
 
@@ -158,7 +158,7 @@ class PyTriliumNoteClient(PyTriliumClient):
             The response from the Trilium API.
         """
         return self.make_request(f"/refresh-note-ordering/{parent_note_id}", method="POST")
-    
+
     def create_note(self, data: str) -> requests.Response:
         """Create a new Note.
 
