@@ -2,6 +2,10 @@
 
 Python SDK (wrapper, whatever you want to call it) for interacting with [Trilium's](https://github.com/zadam/trilium) ETAPI. The exact OpenAPI spec definition file that I'm trying to match can be found [here](https://github.com/zadam/trilium/blob/master/src/etapi/etapi.openapi.yaml).
 
+You can use either your password or an ETAPI token to authenticate to the Trilium instance.
+
+
+
 ## Installation
 
 ```bash
@@ -10,6 +14,25 @@ pip install pytrilium
 
 ## Examples
 
+### Using tokens or password to authenticate
+Token:
+```python
+from pytrilium.PyTrilium import PyTrilium
+
+pytrilium_client = PyTrilium("https://trilium.example.com", token="TTDaTeG3sadffy2_eOtgqvZoI6xHvga/6vhz61ezke1RpoX47vPI93zs5qs=")
+
+print(pytrilium_client.get_note_content_by_id("MLDQ3EGWsU8e"))
+```
+
+Password:
+```python
+from pytrilium.PyTrilium import PyTrilium
+
+pytrilium_client = PyTrilium("https://trilium.example.com", password="thisisabadpassword1")
+
+print(pytrilium_client.get_note_content_by_id("MLDQ3EGWsU8e"))
+```
+
 ### Basic Use Case
 
 This will just print out the contents of a note, as one large string. Trilium's API returns it in the HTML format.
@@ -17,7 +40,7 @@ This will just print out the contents of a note, as one large string. Trilium's 
 ```python
 from pytrilium.PyTrilium import PyTrilium
 
-pytrilium_client = PyTrilium("https://trilium.example.com", "TTDaTeG3sadffy2_eOtgqvZoI6xHvga/6vhz61ezke1RpoX47vPI93zs5qs=")
+pytrilium_client = PyTrilium("https://trilium.example.com", token="TTDaTeG3sadffy2_eOtgqvZoI6xHvga/6vhz61ezke1RpoX47vPI93zs5qs=")
 
 print(pytrilium_client.get_note_content_by_id("MLDQ3EGWsU8e"))
 ```
@@ -27,7 +50,7 @@ Export a note to a file
 ```python
 from pytrilium.PyTrilium import PyTrilium
 
-test_client = PyTrilium("https://trilium.example.com", "TTDaTeG3sadffy2_eOtgqvZoI6xHvga/6vhz61ezke1RpoX47vPI93zs5qs=")
+test_client = PyTrilium("https://trilium.example.com", token="TTDaTeG3sadffy2_eOtgqvZoI6xHvga/6vhz61ezke1RpoX47vPI93zs5qs=")
 
 print(test_client.get_note_content_by_id("MLDQ3EGWsU8e"))
 
@@ -43,7 +66,7 @@ To print out a Note's content without using other helpers -
 ```python
 from pytrilium.PyTrilium import PyTrilium
 
-pytrilium_client = PyTrilium("https://trilium.example.com", "TTDaTeG3sadffy2_eOtgqvZoI6xHvga/6vhz61ezke1RpoX47vPI93zs5qs=")
+pytrilium_client = PyTrilium("https://trilium.example.com", token="TTDaTeG3sadffy2_eOtgqvZoI6xHvga/6vhz61ezke1RpoX47vPI93zs5qs=")
 
 resp = pytrilium_client.make_request('notes/<noteid>/content')
 print(resp.text)
