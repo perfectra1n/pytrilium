@@ -3,7 +3,6 @@ from .PyTriliumBranchClient import PyTriliumBranchClient
 from .PyTriliumAttributeClient import PyTriliumAttributeClient
 from .PyTriliumCalendarClient import PyTriliumCalendarClient
 
-
 class PyTrilium(PyTriliumNoteClient, PyTriliumBranchClient, PyTriliumAttributeClient, PyTriliumCalendarClient):
     def __init__(self, url, token=None, password=None, debug=False) -> None:
         """Initializes the PyTrilium class. You need to either provide an ETAPI token OR a password (which will then be used to generate an ETAPI token).
@@ -58,3 +57,23 @@ class PyTrilium(PyTriliumNoteClient, PyTriliumBranchClient, PyTriliumAttributeCl
     def auth_logout(self):
         """Logs out of Trilium. This should not be called manually."""
         self.make_request("/auth/logout", method="POST")
+
+    def get_inbox_note(self, date:str):
+        """Get the inbox's note for a date.
+
+        Parameters
+        ----------
+        date : str
+            The date which you would like to fetch the inbox note for. This should be in the format of YYYY-MM-DD. e.g. `2021-01-01`
+        """
+        self.make_request(f"/inbox/{date}")
+    
+    def print_custom_functions(self):
+
+        dont_show_these_funcs = ["url", "token", "session"]
+
+        list_of_funcs = dir(self)
+        for func in list_of_funcs:
+            if "__" not in func and "logger" not in func:
+                if func not in dont_show_these_funcs:
+                    print(func)

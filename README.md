@@ -71,6 +71,40 @@ pytrilium_client = PyTrilium("https://trilium.example.com", token="TTDaTeG3sadff
 resp = pytrilium_client.make_request('notes/<noteid>/content')
 print(resp.text)
 ```
+
+## Currently implemented functions
+```
+attempt_basic_call
+auth_login
+auth_logout
+clean_url
+create_note
+create_note_revision
+delete_branch_by_id
+delete_note_by_id
+export_note_by_id
+get_attribute_by_id
+get_branch_by_id
+get_days_note
+get_inbox_note
+get_months_note
+get_note_by_id
+get_note_content_by_id
+get_weeks_note
+get_year_note
+make_request
+make_requests_session
+patch_branch_by_id
+patch_note_by_id
+post_attribute
+post_branch
+print_custom_functions
+put_note_content_by_id
+refresh_note_ordering
+set_session_auth
+valid_response_codes
+```
+
 ## Misc
 To get a quick list of currently available paths from the OpenAPI spec (doesn't always mean what's in this package or not):
 

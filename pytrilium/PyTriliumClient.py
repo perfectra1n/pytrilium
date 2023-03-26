@@ -45,8 +45,8 @@ class PyTriliumClient:
     def make_requests_session(self) -> None:
         """Creates a requests session with the token and user agent header."""
         self.session = requests.Session()
-        self.session.headers.update({"User-Agent": "PyTriliumClient/0.0.1"})
-        self.session.headers.update({"Content-Type": "application/json"})
+        self.session.headers.update({"User-Agent": "PyTriliumClient/1.0.6"})
+        #self.session.headers.update({"Content-Type": "application/json"})
 
         # Set up retry logic
         retries = Retry(total=5, backoff_factor=1, status_forcelist=[502, 503, 504])
