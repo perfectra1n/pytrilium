@@ -36,7 +36,18 @@ class PyTrilium(PyTriliumNoteClient, PyTriliumBranchClient, PyTriliumAttributeCl
         self.attempt_basic_call()
 
     def auth_login(self, password:str) -> str:
-        """Logs in to Trilium using the token provided to the class. This is called automatically when the class is initialized, and should not be called manually."""
+        """Authenticate to Trilium using a password. This should not be called manually. This will return the token that can be used to authenticate to Trilium in future requests.
+
+        Parameters
+        ----------
+        password : str
+            The password to send to Trilium
+
+        Returns
+        -------
+        str
+            The ETAPI token that can be used to authenticate to Trilium in future requests.
+        """
 
         # Returns {"authToken": "33xHpBRHetAN_fh3g0B7MQaaaaj1871fbXLbbK4JAT06GGmZOSwet56M="}
         data = {"password": password}
@@ -45,5 +56,5 @@ class PyTrilium(PyTriliumNoteClient, PyTriliumBranchClient, PyTriliumAttributeCl
         return resp.json()["authToken"]
     
     def auth_logout(self):
-        """Logs out of Trilium using the token provided to the class. This should not be called manually."""
+        """Logs out of Trilium. This should not be called manually."""
         self.make_request("/auth/logout", method="POST")
