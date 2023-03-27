@@ -16,12 +16,12 @@ class PyTriliumAttributeClient(PyTriliumClient):
 
         Returns
         -------
-        requests.Response
+        dict
             The response from the Trilium API.
         """
         return self.make_request(f"/attributes/{attribute_id}").json()
 
-    def post_attribute(self, data: str) -> requests.Response:
+    def post_attribute(self, data: str) -> dict:
         """This will create a new Attribute.
 
         Parameters
@@ -31,7 +31,7 @@ class PyTriliumAttributeClient(PyTriliumClient):
 
         Returns
         -------
-        requests.Response
-            The response from the Trilium API.
+        dict
+            The JSON response from Trilium, as a dictionary.
         """
-        return self.make_request("/attributes", method="POST", data=data)
+        return self.make_request("/attributes", method="POST", data=data).json()

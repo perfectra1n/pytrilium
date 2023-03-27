@@ -16,8 +16,8 @@ class PyTriliumNoteClient(PyTriliumClient):
 
         Returns
         -------
-        requests.Response
-            The response from the Trilium API.
+        dict
+            The JSON response from Trilium, as a dictionary.
         """
         return self.make_request(f"/notes/{note_id}").json()
 
@@ -36,7 +36,7 @@ class PyTriliumNoteClient(PyTriliumClient):
         """
         return self.make_request(f"/notes/{note_id}/content").text
 
-    def put_note_content_by_id(self, note_id: str, data: str) -> requests.Response:
+    def put_note_content_by_id(self, note_id: str, data: str) -> dict:
         """Given the Note's ID, this will update the Note's content.
 
         Parameters
@@ -48,12 +48,12 @@ class PyTriliumNoteClient(PyTriliumClient):
 
         Returns
         -------
-        requests.Response
-            The response from the Trilium API.
+        dict
+            The JSON response from Trilium, as a dictionary.
         """
-        return self.make_request(f"/notes/{note_id}/content", method="PUT", data=data)
+        return self.make_request(f"/notes/{note_id}/content", method="PUT", data=data).json()
 
-    def patch_note_by_id(self, note_id: str, data: str) -> requests.Response:
+    def patch_note_by_id(self, note_id: str, data: str) -> dict:
         """Given the Note's ID, this will update the Note's content.
 
         Parameters
@@ -65,12 +65,12 @@ class PyTriliumNoteClient(PyTriliumClient):
 
         Returns
         -------
-        requests.Response
-            The response from the Trilium API.
+        dict
+            The JSON response from Trilium, as a dictionary.
         """
-        return self.make_request(f"/notes/{note_id}", method="PATCH", data=data)
+        return self.make_request(f"/notes/{note_id}", method="PATCH", data=data).json()
 
-    def delete_note_by_id(self, note_id: str) -> requests.Response:
+    def delete_note_by_id(self, note_id: str) -> dict:
         """Given the Note's ID, this will delete the Note.
 
         Parameters
@@ -80,10 +80,10 @@ class PyTriliumNoteClient(PyTriliumClient):
 
         Returns
         -------
-        requests.Response
-            The response from the Trilium API.
+        dict
+            The JSON response from Trilium, as a dictionary.
         """
-        return self.make_request(f"/notes/{note_id}", method="DELETE")
+        return self.make_request(f"/notes/{note_id}", method="DELETE").json()
 
     def export_note_by_id(self, note_id: str, filepath_to_save_export_zip: str, format="html") -> bool:
         """Given the Note's ID, export itself and all child notes into a singular .zip archive.
@@ -123,7 +123,7 @@ class PyTriliumNoteClient(PyTriliumClient):
             return False
         return True
 
-    def create_note_revision(self, note_id: str, data: str, format: str = "html") -> requests.Response:
+    def create_note_revision(self, note_id: str, data: str, format: str = "html") -> dict:
         """Given the Note's ID, create a new revision of the Note.
 
         Parameters
@@ -137,14 +137,14 @@ class PyTriliumNoteClient(PyTriliumClient):
 
         Returns
         -------
-        requests.Response
-            The response from the Trilium API.
+        dict
+            The JSON response from Trilium, as a dictionary.
         """
 
         params = {"format": format}
-        return self.make_request(f"/notes/{note_id}/note-revision", method="POST", data=data, params=params)
+        return self.make_request(f"/notes/{note_id}/note-revision", method="POST", data=data, params=params).json()
 
-    def refresh_note_ordering(self, parent_note_id: str) -> requests.Response:
+    def refresh_note_ordering(self, parent_note_id: str) -> dict:
         """Given the Note's ID, refresh the node ordering of the Note.
 
         Parameters
@@ -154,12 +154,12 @@ class PyTriliumNoteClient(PyTriliumClient):
 
         Returns
         -------
-        requests.Response
-            The response from the Trilium API.
+        dict
+            The JSON response from Trilium, as a dictionary.
         """
         return self.make_request(f"/refresh-note-ordering/{parent_note_id}", method="POST")
 
-    def create_note(self, data: str) -> requests.Response:
+    def create_note(self, data: str) -> dict:
         """Create a new Note.
 
         Parameters
@@ -169,7 +169,7 @@ class PyTriliumNoteClient(PyTriliumClient):
 
         Returns
         -------
-        requests.Response
-            The response from the Trilium API.
+        dict
+            The JSON response from Trilium, as a dictionary.
         """
-        return self.make_request("/create-note", method="POST", data=data)
+        return self.make_request("/create-note", method="POST", data=data).json()
