@@ -1,9 +1,6 @@
-from .PyTriliumNoteClient import PyTriliumNoteClient
-from .PyTriliumBranchClient import PyTriliumBranchClient
-from .PyTriliumAttributeClient import PyTriliumAttributeClient
-from .PyTriliumCalendarClient import PyTriliumCalendarClient
+from .PyTriliumCustomClient import PyTriliumCustomClient
 
-class PyTrilium(PyTriliumNoteClient, PyTriliumBranchClient, PyTriliumAttributeClient, PyTriliumCalendarClient):
+class PyTrilium(PyTriliumCustomClient):
     def __init__(self, url, token=None, password=None, debug=False) -> None:
         """Initializes the PyTrilium class. You need to either provide an ETAPI token OR a password (which will then be used to generate an ETAPI token).
 
