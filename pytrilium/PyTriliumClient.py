@@ -125,3 +125,13 @@ class PyTriliumClient:
             raise ValueError(
                 f"Invalid response code: {str(resp.status_code)}, response text: {resp.text}. Response code should be one of {self.valid_response_codes}. Please check your Trilium, URL, and token."
             )
+
+    def get_app_info(self) -> dict:
+        """Gets the app info from the Trilium API.
+
+        Returns
+        -------
+        dict
+            The app info from the Trilium API.
+        """
+        return self.make_request("/app-info").json()
