@@ -35,7 +35,7 @@ class PyTriliumClient:
             logger_name="PyTriliumClient",
             log_file_name="PyTriliumClient.log",
             debug=debug,
-            create_log_file=True,
+            create_log_file=False,
         )
 
         # The valid response codes that can come from Triliu
