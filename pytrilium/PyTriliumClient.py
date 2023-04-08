@@ -1,4 +1,5 @@
 import requests
+import toml
 from requests.adapters import HTTPAdapter, Retry
 
 # Local import
@@ -45,7 +46,9 @@ class PyTriliumClient:
     def make_requests_session(self) -> None:
         """Creates a requests session with the token and user agent header."""
         self.session = requests.Session()
-        self.session.headers.update({"User-Agent": "PyTriliumClient/1.0.6"})
+
+        # Version here
+        self.session.headers.update({"User-Agent": f"pytrilium/{self.get_version()}"})
         #self.session.headers.update({"Content-Type": "application/json"})
 
         # Set up retry logic
@@ -135,3 +138,19 @@ class PyTriliumClient:
             The app info from the Trilium API.
         """
         return self.make_request("/app-info").json()
+    
+    def get_pyproject_toml(self) -> dict:
+        """Load the pyproject.toml file. This should not be called manually."""
+        import toml
+        with open("pyproject.toml", "r") as f:
+            return toml.load(f)
+
+    def get_version(self) -> str:
+        """Gets the version of the PyTriliumClient.
+
+        Returns
+        -------
+        str
+            The version of the PyTriliumClient.
+        """
+        return self.get_pyproject_toml()["project"]["version"]
