@@ -1,5 +1,7 @@
 from .PyTriliumCustomClient import PyTriliumCustomClient
 
+from datetime import datetime
+
 class PyTrilium(PyTriliumCustomClient):
     def __init__(self, url, token=None, password=None, debug=False) -> None:
         """Initializes the PyTrilium class. You need to either provide an ETAPI token OR a password (which will then be used to generate an ETAPI token).
@@ -50,6 +52,26 @@ class PyTrilium(PyTriliumCustomClient):
 
         resp = self.make_request("/auth/login", data=data, method="POST")
         return resp.json()["authToken"]
+    
+    def create_backup(self, backup_name:str = datetime.today().strftime("%m_%d_%Y")) -> bool:
+        """Create a backup that is placed on Trilium's server. This should not be called manually.
+
+        Parameters
+        ----------
+        backup_name : str, optional
+            The name you wish to have appended to the backup, starts out with `backup-<name>.db`, by default datetime.today().strftime("%m_%d_%Y")
+
+        Returns
+        ------
+        bool
+            Returns if the backup was successful or not.
+        """
+        request = self.make_request(f"/backup/{backup_name}", method="PUT")
+        if request.status_code == 204:
+            return True
+        else:
+            return False
+        
     
     def auth_logout(self):
         """Logs out of Trilium. This should not be called manually."""
