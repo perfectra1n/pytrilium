@@ -48,7 +48,7 @@ class PyTriliumClient:
         self.session = requests.Session()
 
         # Version here
-        self.session.headers.update({"User-Agent": f"pytrilium/{self.get_version()}"})
+        self.session.headers.update({"User-Agent": "pytrilium/1.2.0"})
         #self.session.headers.update({"Content-Type": "application/json"})
 
         # Set up retry logic
@@ -144,13 +144,3 @@ class PyTriliumClient:
         import toml
         with open("pyproject.toml", "r") as f:
             return toml.load(f)
-
-    def get_version(self) -> str:
-        """Gets the version of the PyTriliumClient.
-
-        Returns
-        -------
-        str
-            The version of the PyTriliumClient.
-        """
-        return self.get_pyproject_toml()["project"]["version"]
