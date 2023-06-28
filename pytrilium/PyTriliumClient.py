@@ -1,5 +1,4 @@
 import requests
-import toml
 from requests.adapters import HTTPAdapter, Retry
 
 # Local import
@@ -138,9 +137,4 @@ class PyTriliumClient:
             The app info from the Trilium API.
         """
         return self.make_request("/app-info").json()
-    
-    def get_pyproject_toml(self) -> dict:
-        """Load the pyproject.toml file. This should not be called manually."""
-        import toml
-        with open("pyproject.toml", "r") as f:
-            return toml.load(f)
+
