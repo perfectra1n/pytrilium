@@ -6,7 +6,7 @@ You can use either your password or an ETAPI token to authenticate to the Triliu
 
 
 
-## Installation
+## 🖥 Installation
 
 ```bash
 pip install pytrilium
@@ -14,7 +14,7 @@ pip install pytrilium
 
 ## Examples
 
-### Using tokens or password to authenticate
+### 🔐 Authenticating (via ETAPI token or password)
 Token:
 ```python
 from pytrilium.PyTrilium import PyTrilium
@@ -33,7 +33,7 @@ pytrilium_client = PyTrilium("https://trilium.example.com", password="thisisabad
 print(pytrilium_client.get_note_content_by_id("MLDQ3EGWsU8e"))
 ```
 
-### Basic Use Case
+### 📒 Basic Use Case
 
 This will just print out the contents of a note, as one large string. Trilium's API returns it in the HTML format.
 
@@ -57,7 +57,7 @@ print(test_client.get_note_content_by_id("MLDQ3EGWsU8e"))
 test_client.export_note_by_id("MLDQ3EGWsU8e", "./test.zip")
 ```
 
-### More Advanced
+### 🧠 More Advanced
 
 If I'm braindead or this just doesn't do what you want it to, you can still use the underlying `requests.Session` that I've set up so that you can still interact with the API. This way you can still make manual requests if you would like to, and do whatever you would like with them.
 
