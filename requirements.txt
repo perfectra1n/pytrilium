@@ -1,5 +1,5 @@
 certifi==2023.7.22
-charset-normalizer==3.2.0
+charset-normalizer==3.3.0
 coloredlogs==15.0.1
 humanfriendly==10.0
 idna==3.4
