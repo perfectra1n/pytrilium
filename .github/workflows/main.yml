@@ -35,9 +35,9 @@ jobs:
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
 
-      - uses: actions/checkout@v5
+      - uses: actions/checkout
       - name: Create a Release
-        uses: elgohr/Github-Release-Action@v4
+        uses: elgohr/Github-Release-Action
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
