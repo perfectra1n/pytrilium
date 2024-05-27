@@ -3,6 +3,6 @@ charset-normalizer==3.3.2
 coloredlogs==15.0.1
 humanfriendly==10.0
 idna==3.7
-requests==2.32.0
+requests==2.32.2
 toml==0.10.2
 urllib3==2.2.1
