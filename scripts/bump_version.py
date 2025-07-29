@@ -19,7 +19,7 @@ def get_current_version():
         sys.exit(1)
 
     content = pyproject_path.read_text()
-    match = re.search(r'version = "([^"]+)"', content)
+    match = re.search(r'^version = "([^"]+)"', content, re.MULTILINE)
     if not match:
         print("❌ Could not find version in pyproject.toml")
         sys.exit(1)
@@ -60,9 +60,7 @@ def update_all_versions(old_version, new_version):
     if update_version_in_file("pyproject.toml", old_version, new_version, r'version = "{old_version}"'):
         files_updated.append("pyproject.toml")
 
-    # Update User-Agent in PyTriliumClient.py
-    if update_version_in_file("pytrilium/PyTriliumClient.py", old_version, new_version, r"pytrilium/{old_version}"):
-        files_updated.append("pytrilium/PyTriliumClient.py")
+    # No need to update PyTriliumClient.py anymore - it reads version dynamically
 
     return files_updated
 
@@ -122,7 +120,6 @@ def main():
         print("\n🔍 DRY RUN - No changes will be made")
         print(f"Would update version from {current_version} to {args.new_version} in:")
         print("  - pyproject.toml")
-        print("  - pytrilium/PyTriliumClient.py")
         if args.create_tag:
             print(f"Would create git tag: v{args.new_version}")
         if args.push_tag:
@@ -138,6 +135,7 @@ def main():
         sys.exit(1)
 
     print(f"\n✅ Successfully updated {len(files_updated)} file(s)")
+    print("📌 Note: User-Agent version is now set dynamically from package metadata")
 
     # Create git tag if requested
     if args.create_tag:

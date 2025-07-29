@@ -59,24 +59,17 @@ jobs:
     
     - name: Verify version consistency
       run: |
-        PYPROJECT_VERSION=$(grep "version = " pyproject.toml | sed 's/version = "\(.*\)"/\1/')
-        USER_AGENT_VERSION=$(grep "pytrilium/" pytrilium/PyTriliumClient.py | sed 's/.*pytrilium\/\([0-9.]*\)".*/\1/')
+        PYPROJECT_VERSION=$(grep "^version = " pyproject.toml | sed 's/version = "\(.*\)"/\1/')
         
         echo "Tag version: $RELEASE_VERSION"
         echo "pyproject.toml version: $PYPROJECT_VERSION"
-        echo "User-Agent version: $USER_AGENT_VERSION"
         
         if [ "$RELEASE_VERSION" != "$PYPROJECT_VERSION" ]; then
           echo "❌ Version mismatch: tag ($RELEASE_VERSION) != pyproject.toml ($PYPROJECT_VERSION)"
           exit 1
         fi
         
-        if [ "$RELEASE_VERSION" != "$USER_AGENT_VERSION" ]; then
-          echo "❌ Version mismatch: tag ($RELEASE_VERSION) != User-Agent ($USER_AGENT_VERSION)"
-          exit 1
-        fi
-        
-        echo "✅ All versions match: $RELEASE_VERSION"
+        echo "✅ Version matches: $RELEASE_VERSION"
     
     - name: Install build dependencies
       run: |

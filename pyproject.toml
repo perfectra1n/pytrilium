@@ -23,7 +23,8 @@ classifiers = [
 ]
 dependencies = [
     "requests",
-    'coloredlogs'
+    "coloredlogs",
+    "importlib-metadata>=1.0; python_version < '3.8'"
 ]
 # Package discovery is handled automatically by hatchling
 # No need to specify packages explicitly

@@ -1,8 +1,9 @@
 import requests
 from requests.adapters import HTTPAdapter, Retry
 
-# Local import
+# Local imports
 from . import log
+from . import __version__
 
 
 class PyTriliumClient:
@@ -46,8 +47,8 @@ class PyTriliumClient:
         """Creates a requests session with the token and user agent header."""
         self.session = requests.Session()
 
-        # Version here
-        self.session.headers.update({"User-Agent": "pytrilium/1.3.3"})
+        # Set User-Agent with dynamic version
+        self.session.headers.update({"User-Agent": f"pytrilium/{__version__}"})
         # self.session.headers.update({"Content-Type": "application/json"})
 
         # Set up retry logic

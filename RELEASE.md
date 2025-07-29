@@ -34,15 +34,16 @@ PyTrilium uses GitHub Actions for automated releases that:
 
 If you prefer manual control:
 
-### 1. Update Version Numbers
+### 1. Update Version Number
 
-Update the version in both places:
+Update the version in:
 - `pyproject.toml`: `version = "1.3.2"`
-- `pytrilium/PyTriliumClient.py`: `"pytrilium/1.3.2"`
 
-Or use the script:
+The User-Agent version is now set dynamically from the package metadata, so no manual update is needed.
+
+Use the script:
 ```bash
-python scripts/bump_version.py 1.3.2  # Updates files only
+python scripts/bump_version.py 1.3.2  # Updates pyproject.toml
 ```
 
 ### 2. Commit Changes
@@ -73,13 +74,13 @@ The release workflow automatically triggers on tag push and handles:
 The `scripts/bump_version.py` script helps manage versions:
 
 ```bash
-# Update version numbers only
+# Update version number
 python scripts/bump_version.py 1.3.2
 
-# Update versions and create git tag
+# Update version and create git tag
 python scripts/bump_version.py 1.3.2 --create-tag
 
-# Update versions, create and push git tag
+# Update version, create and push git tag
 python scripts/bump_version.py 1.3.2 --create-tag --push-tag
 
 # Preview changes without making them
@@ -135,11 +136,11 @@ The GitHub Actions will verify most of these automatically.
 
 ### Version Mismatch Errors
 
-If you see version mismatch errors, ensure both files have the same version:
-- `pyproject.toml`
-- `pytrilium/PyTriliumClient.py`
+If you see version mismatch errors, ensure the tag version matches pyproject.toml:
+- Tag: `vX.Y.Z`
+- `pyproject.toml`: `version = "X.Y.Z"`
 
-Use the version script to fix: `python scripts/bump_version.py X.Y.Z`
+The User-Agent version is now automatically set from the package metadata.
 
 ### PyPI Upload Failures
 

@@ -54,18 +54,16 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Check version consistency
+    - name: Check version format
       run: |
-        PYPROJECT_VERSION=$(grep "version = " pyproject.toml | sed 's/version = "\(.*\)"/\1/')
-        USER_AGENT_VERSION=$(grep "pytrilium/" pytrilium/PyTriliumClient.py | sed 's/.*pytrilium\/\([0-9.]*\)".*/\1/')
+        PYPROJECT_VERSION=$(grep "^version = " pyproject.toml | sed 's/version = "\(.*\)"/\1/')
         
         echo "pyproject.toml version: $PYPROJECT_VERSION"
-        echo "User-Agent version: $USER_AGENT_VERSION"
         
-        if [ "$PYPROJECT_VERSION" != "$USER_AGENT_VERSION" ]; then
-          echo "❌ Version mismatch between pyproject.toml ($PYPROJECT_VERSION) and User-Agent ($USER_AGENT_VERSION)"
-          echo "Please update both versions to match before releasing"
+        # Verify version follows semantic versioning
+        if ! echo "$PYPROJECT_VERSION" | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' > /dev/null; then
+          echo "❌ Version $PYPROJECT_VERSION does not follow semantic versioning (X.Y.Z)"
           exit 1
         fi
         
-        echo "✅ Versions are consistent: $PYPROJECT_VERSION"
+        echo "✅ Version format is valid: $PYPROJECT_VERSION"
