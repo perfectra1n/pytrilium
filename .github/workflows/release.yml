@@ -98,35 +98,3 @@ jobs:
         prerelease: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  update-docs:
-    needs: build-and-publish
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    
-    steps:
-    - uses: actions/checkout@v4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        fetch-depth: 0
-    
-    - name: Update installation command in README
-      run: |
-        # Update the pip install command to include the latest version
-        sed -i "s/pip install pytrilium/pip install pytrilium==${{ env.RELEASE_VERSION }}/g" README.md || true
-    
-    - name: Commit documentation updates
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        
-        if git diff --quiet; then
-          echo "No documentation changes to commit"
-        else
-          git add README.md
-          git commit -m "docs: update installation command for v${{ env.RELEASE_VERSION }}"
-          git push origin main || git push origin master
-        fi
-      env:
-        RELEASE_VERSION: ${{ env.RELEASE_VERSION }}
