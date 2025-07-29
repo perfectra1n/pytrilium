@@ -20,13 +20,35 @@ dependencies = [
     "requests",
     'coloredlogs'
 ]
-packages = [
-    {include = "pytrilium"},
-]
+# Package discovery is handled automatically by hatchling
+# No need to specify packages explicitly
 
 [project.urls]
 "Homepage" = "https://github.com/perfectra1n/pytrilium"
 "Bug Tracker" = "https://github.com/perfectra1n/pytrilium/issues"
+"Repository" = "https://github.com/perfectra1n/pytrilium"
+"Documentation" = "https://github.com/perfectra1n/pytrilium#readme"
+"Changelog" = "https://github.com/perfectra1n/pytrilium/releases"
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "isort", 
+    "flake8",
+    "pytest",
+    "build",
+    "twine"
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["pytrilium"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/pytrilium",
+    "/README.md",
+    "/LICENSE"
+]
 
 [tool.black]
 line-length = 120

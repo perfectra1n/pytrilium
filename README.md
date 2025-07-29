@@ -148,6 +148,44 @@ set_session_auth
 valid_response_codes
 ```
 
+## Development
+
+### Installing for Development
+
+```bash
+git clone https://github.com/perfectra1n/pytrilium.git
+cd pytrilium
+pip install -e ".[dev]"
+```
+
+### Running Tests
+
+```bash
+# Format code
+black pytrilium/
+
+# Check imports
+isort pytrilium/
+
+# Lint code  
+flake8 pytrilium/
+
+# Test imports
+python -c "from pytrilium.PyTrilium import PyTrilium; print('✅ Import successful')"
+```
+
+### Releasing
+
+See [RELEASE.md](RELEASE.md) for the complete release process. Quick version:
+
+```bash
+# Update version and create tag
+python scripts/bump_version.py 1.3.2 --create-tag --push-tag
+
+# Push to trigger automated release
+git push origin main
+```
+
 ## Misc
 To get a quick list of currently available paths from the OpenAPI spec (doesn't always mean what's in this package or not):
 
