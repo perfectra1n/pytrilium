@@ -19,7 +19,7 @@ class PyTriliumCalendarClient(PyTriliumClient):
         dict
             The JSON response from Trilium, as a dictionary.
         """
-        return self.make_request(f"calendar/years/{year}").json()
+        return self.make_request(f"/calendar/years/{year}").json()
 
     def get_weeks_note(self, weeks: str) -> dict:
         """Get the note for a week, in Trilium's calendar.
@@ -34,8 +34,8 @@ class PyTriliumCalendarClient(PyTriliumClient):
         dict
             The JSON response from Trilium, as a dictionary.
         """
-        return self.make_request(f"calendar/weeks/{weeks}").json()
-    
+        return self.make_request(f"/calendar/weeks/{weeks}").json()
+
     def get_months_note(self, months: str) -> dict:
         """Get the note for a month, in Trilium's calendar.
 
@@ -49,8 +49,8 @@ class PyTriliumCalendarClient(PyTriliumClient):
         dict
             The JSON response from Trilium, as a dictionary.
         """
-        return self.make_request(f"calendar/months/{months}").json()
-    
+        return self.make_request(f"/calendar/months/{months}").json()
+
     def get_days_note(self, date: str) -> dict:
         """Get the note for a day, in Trilium's calendar.
 
@@ -64,4 +64,4 @@ class PyTriliumCalendarClient(PyTriliumClient):
         dict
             The JSON response from Trilium, as a dictionary.
         """
-        return self.make_request(f"calendar/days/{date}").json()
+        return self.make_request(f"/calendar/days/{date}").json()

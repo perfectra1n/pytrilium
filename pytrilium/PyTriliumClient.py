@@ -48,7 +48,7 @@ class PyTriliumClient:
 
         # Version here
         self.session.headers.update({"User-Agent": "pytrilium/1.2.4"})
-        #self.session.headers.update({"Content-Type": "application/json"})
+        # self.session.headers.update({"Content-Type": "application/json"})
 
         # Set up retry logic
         retries = Retry(total=5, backoff_factor=1, status_forcelist=[502, 503, 504])
@@ -137,4 +137,3 @@ class PyTriliumClient:
             The app info from the Trilium API.
         """
         return self.make_request("/app-info").json()
-

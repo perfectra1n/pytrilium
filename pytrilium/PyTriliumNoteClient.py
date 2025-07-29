@@ -173,3 +173,62 @@ class PyTriliumNoteClient(PyTriliumClient):
             The JSON response from Trilium, as a dictionary.
         """
         return self.make_request("/create-note", method="POST", data=data).json()
+
+    def search(
+        self,
+        query: str,
+        fast_search: bool = False,
+        include_archived_notes: bool = False,
+        ancestor_note_id: str = "",
+        ancestor_depth: str = "",
+        order_by: str = "",
+        limit: int = 0,
+        debug: bool = False,
+    ) -> dict:
+        """Search for a Note, given a query. You can see examples for queries here: https://github.com/zadam/trilium/wiki/Search. Some examples include: `rings tolkien`, `"The Lord of the Rings" Tolkien` (for exact matches), `towers #book` (for searching by tags), and `~author.title *=* Tolkien` (find notes which have relation "author" which points to a note with title containing word "Tolkien").
+
+        Parameters
+        ----------
+        query : str
+            _description_
+        fast_search : bool, optional
+            _description_, by default False
+        include_archived_notes : bool, optional
+            _description_, by default False
+        ancestor_note_id : str, optional
+            _description_, by default ""
+        ancestor_depth : str, optional
+            _description_, by default ""
+        order_by : str, optional
+            _description_, by default ""
+        limit : int, optional
+            _description_, by default 0
+        debug : bool, optional
+            _description_, by default False
+
+        Returns
+        -------
+        dict
+            _description_
+        """
+        
+        if "?search=" not in query:
+            query = f"?search={query}"
+        
+        # Loop through all the local variables, and add them to the query string
+        for key, value in locals().items():
+            # Skip the self key
+            if key == "self":
+                continue
+            # Skip the key and value for empty strings, since we set them at the top of the function
+            elif value == "":
+                continue
+            # Skip the key and value for 0, since we set them at the top of the function
+            elif value == 0:
+                continue
+            elif type(value) == bool:
+                query = f"{query}&{key}={str(value).lower()}"
+            else:
+                query = f"{query}&{key}={value}"        
+        
+        return self.make_request(f"/notes{query}").json()

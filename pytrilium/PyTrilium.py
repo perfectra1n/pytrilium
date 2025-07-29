@@ -2,6 +2,7 @@ from .PyTriliumCustomClient import PyTriliumCustomClient
 
 from datetime import datetime
 
+
 class PyTrilium(PyTriliumCustomClient):
     def __init__(self, url, token=None, password=None, debug=False) -> None:
         """Initializes the PyTrilium class. You need to either provide an ETAPI token OR a password (which will then be used to generate an ETAPI token).
@@ -33,7 +34,7 @@ class PyTrilium(PyTriliumCustomClient):
         # Attempt a basic call to make sure that the token is valid
         self.attempt_basic_call()
 
-    def auth_login(self, password:str) -> str:
+    def auth_login(self, password: str) -> str:
         """Authenticate to Trilium using a password. This should not be called manually. This will return the token that can be used to authenticate to Trilium in future requests.
 
         Parameters
@@ -52,8 +53,8 @@ class PyTrilium(PyTriliumCustomClient):
 
         resp = self.make_request("/auth/login", data=data, method="POST")
         return resp.json()["authToken"]
-    
-    def create_backup(self, backup_name:str = datetime.today().strftime("%m_%d_%Y")) -> bool:
+
+    def create_backup(self, backup_name: str = datetime.today().strftime("%m_%d_%Y")) -> bool:
         """Create a backup that is placed on Trilium's server. This should not be called manually.
 
         Parameters
@@ -71,13 +72,12 @@ class PyTrilium(PyTriliumCustomClient):
             return True
         else:
             return False
-        
-    
+
     def auth_logout(self):
         """Logs out of Trilium. This should not be called manually."""
         self.make_request("/auth/logout", method="POST")
 
-    def get_inbox_note(self, date:str):
+    def get_inbox_note(self, date: str):
         """Get the inbox's note for a date.
 
         Parameters
@@ -86,7 +86,7 @@ class PyTrilium(PyTriliumCustomClient):
             The date which you would like to fetch the inbox note for. This should be in the format of YYYY-MM-DD. e.g. `2021-01-01`
         """
         self.make_request(f"/inbox/{date}")
-    
+
     def print_custom_functions(self):
 
         dont_show_these_funcs = ["url", "token", "session"]
