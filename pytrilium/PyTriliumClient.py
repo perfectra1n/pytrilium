@@ -47,7 +47,7 @@ class PyTriliumClient:
         self.session = requests.Session()
 
         # Version here
-        self.session.headers.update({"User-Agent": "pytrilium/1.2.4"})
+        self.session.headers.update({"User-Agent": "pytrilium/1.3.1"})
         # self.session.headers.update({"Content-Type": "application/json"})
 
         # Set up retry logic
