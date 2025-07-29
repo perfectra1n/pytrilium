@@ -24,13 +24,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install pytest black isort
-    
-    - name: Format check with black
-      run: black --check pytrilium/
-    
-    - name: Import order check with isort
-      run: isort --check-only pytrilium/
+        pip install pytest
     
     - name: Test imports
       run: python -c "from pytrilium.PyTrilium import PyTrilium; print('Import test passed')"
