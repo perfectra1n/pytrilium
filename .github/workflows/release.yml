@@ -76,23 +76,6 @@ jobs:
     - name: Check package
       run: python -m twine check dist/*
     
-    - name: Generate changelog
-      id: changelog
-      run: |
-        # Get commits since last tag
-        LAST_TAG=$(git describe --tags --abbrev=0 HEAD~1 2>/dev/null || echo "")
-        if [ -z "$LAST_TAG" ]; then
-          echo "## Changes" > CHANGELOG.md
-          echo "Initial release with complete Trilium ETAPI coverage" >> CHANGELOG.md
-        else
-          echo "## Changes since $LAST_TAG" > CHANGELOG.md
-          git log --pretty=format:"- %s (%h)" $LAST_TAG..HEAD >> CHANGELOG.md
-        fi
-        
-        # Set output for GitHub release
-        echo "changelog<<EOF" >> $GITHUB_OUTPUT
-        cat CHANGELOG.md >> $GITHUB_OUTPUT
-        echo "EOF" >> $GITHUB_OUTPUT
     
     - name: Publish to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
@@ -107,7 +90,7 @@ jobs:
       with:
         tag_name: ${{ env.TAG_NAME }}
         name: Release ${{ env.TAG_NAME }}
-        body: ${{ steps.changelog.outputs.changelog }}
+        generate_release_notes: true
         files: |
           dist/*.whl
           dist/*.tar.gz
