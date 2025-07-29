@@ -211,10 +211,10 @@ class PyTriliumNoteClient(PyTriliumClient):
         dict
             _description_
         """
-        
+
         if "?search=" not in query:
             query = f"?search={query}"
-        
+
         # Loop through all the local variables, and add them to the query string
         for key, value in locals().items():
             # Skip the self key
@@ -229,6 +229,6 @@ class PyTriliumNoteClient(PyTriliumClient):
             elif type(value) == bool:
                 query = f"{query}&{key}={str(value).lower()}"
             else:
-                query = f"{query}&{key}={value}"        
-        
+                query = f"{query}&{key}={value}"
+
         return self.make_request(f"/notes{query}").json()
