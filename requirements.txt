@@ -2,7 +2,7 @@ certifi==2025.10.5
 charset-normalizer==3.4.4
 coloredlogs==15.0.1
 humanfriendly==10.0
-idna==3.10
+idna==3.11
 requests==2.32.5
 toml==0.10.2
 urllib3==2.5.0
