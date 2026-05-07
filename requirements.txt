@@ -5,4 +5,4 @@ humanfriendly==10.0
 idna==3.13
 requests==2.33.1
 toml==0.10.2
-urllib3==2.6.3
+urllib3==2.7.0
