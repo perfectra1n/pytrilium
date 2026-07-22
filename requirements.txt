@@ -1,4 +1,4 @@
-certifi==2026.4.22
+certifi==2026.7.22
 charset-normalizer==3.4.7
 coloredlogs==15.0.1
 humanfriendly==10.0
